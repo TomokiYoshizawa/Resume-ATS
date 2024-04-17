@@ -1,6 +1,7 @@
 import "./App.css";
 import Upload from "./Components/Upload/Upload";
-import "pdfjs-dist/web/pdf_viewer.css";
+// import "react-pdf/dist/cjs/Page/TextLayer.css";
+
 function App() {
   return (
     <div className="app">
