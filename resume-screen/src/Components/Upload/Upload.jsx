@@ -1,13 +1,12 @@
 import React, { useState, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
-// Set PDF.js worker path (update the path as needed)
+// Set PDF.js worker path
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function Upload() {
   const [file, setFile] = useState(null);
   const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
   const fileInputRef = useRef();
 
   const handleFileChange = (event) => {
@@ -36,14 +35,12 @@ function Upload() {
       />
       {file && (
         <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={pageNumber} />
+          {Array.from(new Array(numPages), (el, index) => (
+            <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+          ))}
         </Document>
       )}
-      {file && numPages && (
-        <p>
-          Page {pageNumber} of {numPages}
-        </p>
-      )}
+      {file && numPages && <p>Total pages: {numPages}</p>}
     </div>
   );
 }
